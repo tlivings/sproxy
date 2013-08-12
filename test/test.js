@@ -8,24 +8,26 @@ var assert = require("assert"),
 
 describe("test", function() {
 
-	var app, app2, server, server2, proxyServer;
+	var app, proxyServer;
 
 	before(function(done) {
 
 		app = express();
 
-		app2 = express();
-
-		app2.get("/test", function(req, res) {
+		app.get("/test", function(req, res) {
 			res.json(200, { message : "Hello World"});
 		});
 
-		app2.listen(3001, function() {
+		app.listen(3001, function() {
 
 			proxyServer = sproxy.
 				createServer(app).
 				on("/*").
-				pipe("http://localhost:3001").
+				pipe({
+					scheme : "http",
+					host : "localhost",
+					port : "3001"
+				}).
 				listen(3000, done);
 		});
 
