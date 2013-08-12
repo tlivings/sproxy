@@ -1,16 +1,15 @@
 {
-  "name" : "NAME",
+  "name" : "sproxy",
   "version" : "0.1.0",
-  "private" : true,
   "author" : { 
     "name" : "Trevor Livingston",
     "email" : "tlivings@gmail.com"
   },
   "repository" : { 
     "type" : "git",
-    "url" : "http://github.com/trlivingston/NAME.git"
+    "url" : "http://github.com/tlivings/sproxy.git"
   },
-  "bugs" : "http://github.com/trlivingston/NAME/issues",
+  "bugs" : "http://github.com/tlivings/sproxy/issues",
   "engines" : {
     "node" : "0.10.x"
   },
