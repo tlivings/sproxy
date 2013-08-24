@@ -17,18 +17,6 @@ describe("test", function() {
             res.json(200, { message: "Hello World?"});
         });
 
-        /*
-         var proxyConfig = {
-         "/*" : {
-         scheme : "http",
-         host : "localhost",
-         port : "3001"
-         }
-         };
-
-         var proxy = sproxy(proxyConfig);
-         */
-
         var proxy = sproxy().
             on("/*").
             pipe({
