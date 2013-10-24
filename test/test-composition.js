@@ -9,7 +9,7 @@ describe('test', function () {
 
     var app, proxyServer;
 
-    before(function(done) {
+    before(function (done) {
 
         app = express();
 
@@ -20,15 +20,13 @@ describe('test', function () {
         var proxy = sproxy().
             on('/*').
             pipe({
-                scheme : 'http',
-                host : 'localhost',
                 port : '3001',
                 path : '/foo'
             });
 
         proxyServer = http.createServer(proxy);
 
-        app.listen(3001, function() {
+        app.listen(3001, function () {
 
             proxyServer.listen(3000, done);
 
@@ -36,7 +34,7 @@ describe('test', function () {
 
     });
 
-    after(function() {
+    after(function () {
         proxyServer.close();
     });
 
@@ -47,7 +45,7 @@ describe('test', function () {
                 host : 'localhost',
                 port : '3000',
                 path : '/test'
-            }, function(response) {
+            }, function (response) {
                 assert(response.statusCode === 200);
                 next();
             }
