@@ -1,11 +1,11 @@
-"use strict";
+'use strict';
 
-var assert = require("assert"),
-    http = require("http"),
-    express = require("express"),
-    sproxy = require("../lib/index");
+var assert = require('assert'),
+    http = require('http'),
+    express = require('express'),
+    sproxy = require('../lib/index');
 
-describe("test", function() {
+describe('test', function () {
 
     var app, proxyServer;
 
@@ -13,23 +13,18 @@ describe("test", function() {
 
         app = express();
 
-        app.get("/foo", function(req, res) {
-            res.json(200, { message: "Hello World?"});
+        app.get('/foo', function (req, res) {
+            res.json(200, { message : 'Hello World?'});
         });
 
-
-        var proxyConfig = {
-            "/*": {
-                scheme: "http",
-                host: "localhost",
-                port: "3003",
-                path : "/foo"
+        proxyServer = http.createServer(sproxy({
+            '/*' : {
+                scheme : 'http',
+                host : 'localhost',
+                port : '3003',
+                path : '/foo'
             }
-        };
-
-        var proxy = sproxy(proxyConfig);
-
-        proxyServer = http.createServer(proxy);
+        }));
 
         app.listen(3003, function() {
 
@@ -43,13 +38,13 @@ describe("test", function() {
         proxyServer.close();
     });
 
-    it("should proxy request to /foo on 3003.", function(next) {
+    it('should proxy request to /foo on 3003.', function (next) {
 
         var req = http.request({
-                scheme : "http",
-                host : "localhost",
-                port : "3002",
-                path : "/test"
+                scheme : 'http',
+                host : 'localhost',
+                port : '3002',
+                path : '/test'
             }, function(response) {
                 assert(response.statusCode === 200);
                 next();

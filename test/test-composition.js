@@ -1,11 +1,11 @@
-"use strict";
+'use strict';
 
-var assert = require("assert"),
-    http = require("http"),
-    express = require("express"),
-    sproxy = require("../lib/index");
+var assert = require('assert'),
+    http = require('http'),
+    express = require('express'),
+    sproxy = require('../lib/index');
 
-describe("test", function() {
+describe('test', function () {
 
     var app, proxyServer;
 
@@ -13,17 +13,17 @@ describe("test", function() {
 
         app = express();
 
-        app.get("/foo", function(req, res) {
-            res.json(200, { message: "Hello World?"});
+        app.get('/foo', function (req, res) {
+            res.json(200, { message : 'Hello World?'});
         });
 
         var proxy = sproxy().
-            on("/*").
+            on('/*').
             pipe({
-                scheme: "http",
-                host: "localhost",
-                port: "3001",
-                path: "/foo"
+                scheme : 'http',
+                host : 'localhost',
+                port : '3001',
+                path : '/foo'
             });
 
         proxyServer = http.createServer(proxy);
@@ -40,14 +40,14 @@ describe("test", function() {
         proxyServer.close();
     });
 
-    it("should proxy request to /foo on 3001.", function(next) {
+    it('should proxy request to /foo on 3001.', function (next) {
 
         var req = http.request({
-            scheme : "http",
-            host : "localhost",
-            port : "3000",
-            path : "/test"
-        }, function(response) {
+                scheme : 'http',
+                host : 'localhost',
+                port : '3000',
+                path : '/test'
+            }, function(response) {
                 assert(response.statusCode === 200);
                 next();
             }
